@@ -6,11 +6,11 @@ module.exports = {
   mode: "development",
   entry: {
     app: "./src/index.js",
-    print: "./src/print.js",
   },
-  devtool: 'inline-source-map',
+  devtool: "inline-source-map",
   devServer: {
-    contentBase: './dist',
+    contentBase: "./dist",
+    hot: true,
   },
   plugins: [
     new CleanWebpackPlugin(),
@@ -18,9 +18,17 @@ module.exports = {
       title: "Development",
     }),
   ],
+  module: {
+    rules: [
+      {
+        test: /\.css$/,
+        use: ["style-loader", "css-loader"],
+      },
+    ],
+  },
   output: {
     filename: "[name].bundle.js",
     path: path.resolve(__dirname, "dist"),
-    publicPath: '/',
+    publicPath: "/",
   },
 };
