@@ -4,37 +4,28 @@ const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 
 module.exports = {
   mode: "development",
-  entry: {
-    app: "./src/index.js",
-    duplicated: "./src/duplicated.js"
-  },
+  entry: "./src/index.ts",
   devtool: "inline-source-map",
-  devServer: {
-    contentBase: "./dist",
-    hot: true,
-  },
   plugins: [
     new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
-      title: "Development",
+      title: "typescript",
     }),
   ],
   module: {
     rules: [
       {
-        test: /\.css$/,
-        use: ["style-loader", "css-loader"],
+        test: /\.tsx?$/,
+        use: "ts-loader",
+        exclude: /node_modules/,
       },
     ],
   },
-  output: {
-    filename: "[name].bundle.js",
-    path: path.resolve(__dirname, "dist"),
-    publicPath: "/",
+  resolve: {
+    extensions: [".tsx", ".ts", ".js"],
   },
-  optimization: {
-    splitChunks: {
-      chunks: 'all',
-     },
+  output: {
+    filename: "bundle.js",
+    path: path.resolve(__dirname, "dist"),
   },
 };
